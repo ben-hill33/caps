@@ -15,6 +15,8 @@ require('./driver.js');
 
 events.on('pickup', payload => orderLog('pickup', payload))
 events.on('en-route', payload => orderLog('en-route', payload))
+events.on('thanks', payload => orderLog('thanks', payload))
+
 
 function orderLog(event, payload) {
   let time = new Date();

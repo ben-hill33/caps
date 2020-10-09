@@ -26,10 +26,8 @@ function orderDelivered(payload) {
   console.log((`${chalk.inverse.yellowBright('DRIVER:')}
   ${chalk.greenBright.bold('Delivered order number ')} 
   ${chalk.inverse.green.bold(payload.orderId)}`))
+
   events.emit('delivered', payload)
 }
 
 
-// As a driver, I want to be notified when there is a package to be delivered
-// As a driver, I want to alert the system when I have picked up a package and it is in transit
-// As a driver, I want to alert the system when a package has been delivered
