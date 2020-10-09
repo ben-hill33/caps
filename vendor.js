@@ -23,7 +23,6 @@ require('dotenv').config();
 
 const events = require('./events.js');
 
-// events.on('pickup', payload => vendorLog('pickup', payload))
 
 
 setInterval(() => {

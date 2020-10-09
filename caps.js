@@ -13,14 +13,12 @@ require('./vendor.js');
 require('./driver.js');
 
 
-events.on('pickup', payload => vendorLog('pickup', payload))
+events.on('pickup', payload => orderLog('pickup', payload))
+events.on('en-route', payload => orderLog('en-route', payload))
 
-
-events.emit('pickup', payload => vendorLog('pickup', payload))
-
-
-function vendorLog(event, payload) {
+function orderLog(event, payload) {
   let time = new Date();
-  console.log(chalk.inverse.yellowBright('EVENT'), { event, time, payload })
+  console.log(chalk.inverse.magenta('EVENT'),
+    { event, time, payload })
 }
 
