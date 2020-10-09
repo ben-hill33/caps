@@ -2,7 +2,7 @@
 
 // Singleton exports one instance shared by all modules
 
-const GlobalEvents = require('events');
-const events = new GlobalEvents
+const EventEmitter = require('events');
+const events = new EventEmitter
 
 module.exports = events;

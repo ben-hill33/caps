@@ -13,25 +13,30 @@ Whenever the ‘delivered’ event occurs
 Log “thank you” to the console
 */
 
-const uuid = require('uuid').v4;
+// As a vendor, I want to alert the system when I have a package to be picked up
+// As a vendor, I want to be notified when my package has been delivered
+
+// const uuid = require('uuid').v4;
 const faker = require('faker');
 require('dotenv').config();
-const STORE = process.env.STORE;
+// const STORE = process.env.STORE;
 
 const events = require('./events.js');
 
+// events.on('pickup', payload => vendorLog('pickup', payload))
+
+
 setInterval(() => {
+
   let payload = {
-    storeName: STORE,
-    orderId: uuid(),
+    store: process.env.STORE,
+    orderId: faker.random.uuid(),
     customerName: faker.name.findName(),
     address: faker.address.streetAddress(),
   }
   events.emit('pickup', payload);
+  // console.log(payload)
 }, 5000);
 
-events.on('delivered', logThanks);
 
-function logThanks(payload) {
-  console.log(`Your order was delivered, thank you. ${payload.orderId}`);
-}
+

@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/ben-hill33/caps#readme",
   "dependencies": {
+    "chalk": "^4.1.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
