@@ -5,9 +5,16 @@ const chalk = require('chalk');
 const faker = require('faker');
 require('dotenv').config();
 
-const events = require('./events.js');
+const io = require('socket.io-client')
+const host = 'http://localhost:3000';
+// const capsConnection = io.connect(host)
 
-events.on('delivered', payload => thankYou(payload))
+const capsNamespace = io.connect(`${host}/caps-namespace`)
+
+capsNamespace.emit('join', process.env.STORE)
+
+
+capsNamespace.on('delivered', payload => thankYou(payload))
 
 setInterval(() => {
 
@@ -17,7 +24,7 @@ setInterval(() => {
     customerName: faker.name.findName(),
     address: faker.address.streetAddress(),
   }
-  events.emit('pickup', payload);
+  capsNamespace.emit('pickup', payload);
 }, 5000);
 
 function thankYou(payload) {
@@ -27,4 +34,3 @@ function thankYou(payload) {
   ${payload.orderId}`)
 
 }
-

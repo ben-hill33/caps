@@ -2,10 +2,15 @@
 
 
 const chalk = require('chalk');
-const events = require('./events.js');
-require('./caps.js');
+require('dotenv').config();
 
-events.on('pickup', payload => newPackage(payload))
+const io = require('socket.io-client')
+const host = 'http://localhost:3000';
+// const capsConnection = io.connect(host)
+const capsNamespace = io.connect(`${host}/caps-namespace`)
+
+capsNamespace.on('pickup', payload => newPackage(payload))
+
 
 function newPackage(payload) {
   setTimeout(delivery, 1000, payload)
@@ -18,7 +23,7 @@ function delivery(payload) {
   ${chalk.redBright.bold('Picked up order number ')} 
   ${chalk.bgRed.bold(payload.orderId)}`)
 
-  events.emit('en-route', payload)
+  capsNamespace.emit('en-route', payload)
 }
 
 function orderDelivered(payload) {
@@ -27,7 +32,7 @@ function orderDelivered(payload) {
   ${chalk.greenBright.bold('Delivered order number ')} 
   ${chalk.inverse.green.bold(payload.orderId)}`))
 
-  events.emit('delivered', payload)
+  capsNamespace.emit('delivered', payload)
 }
 
 
