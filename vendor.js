@@ -3,11 +3,17 @@
 
 const chalk = require('chalk');
 const faker = require('faker');
+const io = require('socket.io-client');
 require('dotenv').config();
+// const events = require('./events.js');
 
-const events = require('./events.js');
+// const events = require('./events.js');
+const port = process.env.PORT || 3000;
+const capsConnection = io.connect(port)
 
-events.on('delivered', payload => thankYou(payload))
+
+
+// events.on('delivered', payload => thankYou(payload))
 
 setInterval(() => {
 
@@ -17,14 +23,14 @@ setInterval(() => {
     customerName: faker.name.findName(),
     address: faker.address.streetAddress(),
   }
-  events.emit('pickup', payload);
+  io.emit('pickup', payload);
 }, 5000);
 
-function thankYou(payload) {
+// function thankYou(payload) {
 
-  console.log(`${chalk.inverse.blueBright('Vendor:')}
-  Thank you for delivering order 
-  ${payload.orderId}`)
+//   console.log(`${chalk.inverse.blueBright('Vendor:')}
+//   Thank you for delivering order 
+//   ${payload.orderId}`)
 
-}
+// }
 
